@@ -4,6 +4,8 @@ GPU-accelerated native desktop UI runtime for **Svelte 5** built on [Zed's GPUI]
 
 This is a single, self-contained package consolidating the native Rust N-API engine, the GPUI runtime, the Svelte 5 native compiler, and 86+ typed components into a single npm-publishable package: **`@fractaldesign/gpui-svelte`**.
 
+[Github](https://github.com/fractalmandala/gpui-svelte) | [NPM]( https://www.npmjs.com/package/@fractaldesign/gpui-svelte)
+
 > **Note on Upstream & Provenance:**  
 > This package is a modified distribution of [`countradooku/gpui-native`](https://github.com/countradooku/gpui-native) by countradooku and contributors, which itself incorporates parts of [remorses/gpuix](https://github.com/remorses/gpuix), [zeronsh/comet](https://github.com/zeronsh/comet), [longbridge/gpui-kit](https://github.com/longbridge/gpui-kit), and [Zed GPUI](https://github.com/zed-industries/zed).  
 > **Modifications:**  
