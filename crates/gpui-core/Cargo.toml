@@ -1,0 +1,91 @@
+[package]
+name = "gpui-core"
+version = "0.2.0"
+edition.workspace = true
+description = "Framework-neutral GPUI renderer and retained component runtime"
+license = "Apache-2.0"
+repository = "https://github.com/countradooku/gpui-native"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+chrono = "0.4"
+gpui-component = { path = "../../vendor/gpui-kit/crates/component" }
+gpui-base = { path = "../../vendor/gpui-kit/crates/base" }
+gpui-kit-assets = { path = "../../vendor/gpui-kit/crates/assets" }
+base64 = "0.22"
+csscolorparser = "0.8.3"
+env_logger = "0.11"
+event-listener = "5"
+futures = "0.3"
+gpui = { git = "https://github.com/countradooku/zed.git", rev = "5fc2db20b183d305a1de5166ee1c42ad2b7794a6", default-features = false, features = [
+  "profiler",
+] }
+image = { version = "0.25", default-features = false }
+log = "0.4"
+parking_lot = "0.12"
+pulldown-cmark = { version = "0.12", default-features = false }
+rustc-hash = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["raw_value"] }
+thiserror = "2"
+unicode-segmentation = "1"
+web-time = "1"
+wgpu = { version = "=29.0.4", features = ["serde", "fragile-send-sync-non-atomic-wasm"] }
+
+[target.'cfg(not(target_family = "wasm"))'.dependencies]
+reqwest_client = { git = "https://github.com/countradooku/zed.git", rev = "5fc2db20b183d305a1de5166ee1c42ad2b7794a6" }
+gpui = { git = "https://github.com/countradooku/zed.git", rev = "5fc2db20b183d305a1de5166ee1c42ad2b7794a6", default-features = false, features = [
+  "font-kit",
+  "profiler",
+] }
+gpui_platform = { git = "https://github.com/countradooku/zed.git", rev = "5fc2db20b183d305a1de5166ee1c42ad2b7794a6", default-features = false, features = [
+  "font-kit",
+  "wayland",
+  "x11",
+] }
+napi = { version = "3", features = ["napi8", "serde-json", "tokio_rt"] }
+napi-derive = "3"
+syntect = { version = "5.3", default-features = false, features = ["regex-onig"] }
+two-face = { version = "0.5.2", default-features = false, features = ["syntect-onig"] }
+
+[target.'cfg(target_family = "wasm")'.dependencies]
+syntect = { version = "5.3", default-features = false, features = ["regex-fancy"] }
+two-face = { version = "0.5.2", default-features = false, features = ["syntect-fancy"] }
+
+[target.'cfg(all(target_arch = "wasm32", target_os = "unknown"))'.dependencies]
+gpui_platform = { git = "https://github.com/countradooku/zed.git", rev = "5fc2db20b183d305a1de5166ee1c42ad2b7794a6", default-features = false }
+js-sys = "0.3"
+wasm-bindgen = "=0.2.127"
+wasm-bindgen-futures = "0.4"
+web-sys = { version = "0.3", features = ["Navigator", "Window"] }
+
+[target.'cfg(target_os = "macos")'.dependencies]
+metal = "0.33"
+foreign-types = "0.5"
+gpui_macos = { git = "https://github.com/countradooku/zed.git", rev = "5fc2db20b183d305a1de5166ee1c42ad2b7794a6", default-features = false, features = [
+  "font-kit",
+] }
+
+[target.'cfg(target_os = "windows")'.dependencies]
+windows = { version = "0.61", features = ["Win32_Foundation", "Win32_UI_HiDpi"] }
+
+[features]
+default = []
+# Compatibility feature names used by the npm build scripts. The full native
+# parity engine is always compiled; these names keep the CLI stable.
+napi-bindings = []
+native-window = []
+test-support = [
+  "gpui/test-support",
+  "gpui_platform/test-support",
+  "gpui_macos/test-support",
+  "gpui_macos/font-kit",
+]
+
+[build-dependencies]
+napi-build = "2"
+
+[lints]
+workspace = true

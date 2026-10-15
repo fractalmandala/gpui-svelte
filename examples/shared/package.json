@@ -1,0 +1,14 @@
+{
+  "name": "@gpui-examples/webgpu-scene",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@fractaldesign/gpui-svelte": "file:../..",
+    "@webgpu/types": "^0.1.72",
+    "three": "0.185.1"
+  },
+  "devDependencies": {
+    "@types/three": "^0.185.0"
+  }
+}

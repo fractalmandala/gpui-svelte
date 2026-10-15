@@ -1,0 +1,115 @@
+{
+  "name": "@fractaldesign/gpui-svelte",
+  "version": "0.1.0",
+  "description": "GPU-accelerated native desktop UI runtime for Svelte 5 built on Zed's GPUI",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/fractaldesign/gpui-svelte#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fractaldesign/gpui-svelte.git"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./kit": {
+      "types": "./dist/kit.d.ts",
+      "import": "./dist/kit.js"
+    },
+    "./vite": {
+      "types": "./dist/vite.d.ts",
+      "import": "./dist/vite.js"
+    },
+    "./public": {
+      "types": "./dist/public.d.ts",
+      "import": "./dist/public.js"
+    },
+    "./engine": {
+      "types": "./dist/engine.d.ts",
+      "import": "./dist/engine.js"
+    },
+    "./store": {
+      "types": "./dist/store.d.ts",
+      "import": "./dist/store.js"
+    },
+    "./reactivity": {
+      "types": "./dist/reactivity.d.ts",
+      "import": "./dist/reactivity.js"
+    },
+    "./components": {
+      "types": "./dist/components.d.ts",
+      "import": "./dist/components.js"
+    },
+    "./context": {
+      "types": "./dist/context.svelte.d.ts",
+      "import": "./dist/context.svelte.js"
+    },
+    "./webgpu": {
+      "types": "./dist/webgpu.svelte.d.ts",
+      "import": "./dist/webgpu.svelte.js"
+    },
+    "./webgpu-native": {
+      "types": "./dist/webgpu-native.d.ts",
+      "import": "./dist/webgpu-native.js"
+    },
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.js"
+    }
+  },
+  "files": [
+    "dist",
+    "native.cjs",
+    "gpui-native.*.node",
+    "README.md",
+    "LICENSE"
+  ],
+  "workspaces": {
+    "packages": [
+      "examples/*"
+    ],
+    "catalog": {
+      "@types/node": "^24.0.0",
+      "typescript": "^5.9.3",
+      "vite": "^8.2.2"
+    }
+  },
+  "scripts": {
+    "build": "bun run build:native && bun run build:svelte",
+    "build:native": "bun x @napi-rs/cli build --platform --release --manifest-path crates/gpui-core/Cargo.toml --no-default-features --features napi-bindings,native-window,test-support --output-dir . && ([ -f index.darwin-arm64.node ] && cp -f index.darwin-arm64.node gpui-native.darwin-arm64.node && rm -f index.darwin-arm64.node index.js || true)",
+    "build:svelte": "bun run scripts/build-svelte.mts",
+    "typecheck": "tsc --noEmit && svelte-check --fail-on-warnings",
+    "format": "prettier --plugin prettier-plugin-svelte --write \"src/**/*.svelte\" \"examples/**/*.svelte\""
+  },
+  "dependencies": {
+    "@webgpu/types": "^0.1.72",
+    "eventsource-parser": "^4.1.0",
+    "magic-string": "^0.30.21",
+    "svelte": "5.57.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@napi-rs/cli": "^3.1.3",
+    "@types/node": "^24.0.0",
+    "esbuild": "0.28.2",
+    "prettier": "3.9.6",
+    "prettier-plugin-svelte": "4.1.1",
+    "svelte-check": "4.7.6",
+    "svelte2tsx": "^0.7.45",
+    "typescript": "^5.9.3",
+    "vite": "^8.2.2"
+  },
+  "peerDependencies": {
+    "vite": "^8.0.0"
+  },
+  "peerDependenciesMeta": {
+    "vite": {
+      "optional": true
+    }
+  },
+  "packageManager": "bun@1.4.0"
+}

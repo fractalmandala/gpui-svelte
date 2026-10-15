@@ -1,0 +1,19 @@
+/target/
+dist-pages/
+web/pkg/
+node_modules/
+dist/
+*.node
+.env
+.env.*
+!.env.example
+*.log
+.idea/
+.vscode/
+coverage/
+packages/core/index.js
+.DS_Store
+
+# Compiled Svelte test fixtures
+packages/svelte/test/.compiled/
+/release-assets/

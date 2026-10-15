@@ -1,0 +1,22 @@
+{
+  "name": "@gpui-svelte/example-counter",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "bun run typecheck && vite build --config ../../vite.examples.config.mts",
+    "build:binary": "bun run build && bun run ../../scripts/compile-example.mts",
+    "start": "bun dist/main.js",
+    "typecheck": "svelte-check --tsconfig tsconfig.json --fail-on-warnings"
+  },
+  "dependencies": {
+    "@fractaldesign/gpui-svelte": "file:../..",
+    "svelte": "5.57.0"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "svelte-check": "4.7.6",
+    "typescript": "catalog:",
+    "vite": "catalog:"
+  }
+}

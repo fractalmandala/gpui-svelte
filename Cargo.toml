@@ -1,0 +1,25 @@
+[workspace]
+members = ["crates/gpui-core"]
+exclude = ["vendor/gpui-kit"]
+resolver = "2"
+
+[workspace.package]
+edition = "2024"
+rust-version = "1.85"
+
+[workspace.lints.rust]
+unsafe_code = "deny"
+
+[workspace.lints.clippy]
+all = { level = "warn", priority = -1 }
+pedantic = { level = "warn", priority = -1 }
+# GPUI paint code conventionally uses compact geometry names and packed RGBA
+# literals; forcing verbose spellings makes those sections harder to compare
+# with upstream without improving correctness.
+many_single_char_names = "allow"
+unreadable_literal = "allow"
+unnested_or_patterns = "allow"
+
+# Two WebGPU object accessors on the exact GPUI-compatible wgpu release.
+[patch.crates-io]
+wgpu = { git = "https://github.com/countradooku/wgpu.git", rev = "8e8be4fd0cba753427625979bc0dab8acdbc440a" }
