@@ -1,26 +1,30 @@
-# @fractaldesign/gpui-svelte contributor guide
+# AGENTS
 
-## Architecture
+The top of the README in every project must have:
 
-- Keep the Svelte adapter thin. Svelte owns component state, runes (`$state`, `$derived`, `$effect`), and reconciliation; GPUI owns layout, input, text shaping, painting, focus, scrolling, and windows.
-- `crates/gpui-core` compiles to the native N-API addon (`gpui-native.<platform>.node`), loaded through `native.cjs`.
-- All mutation waves go through `applyBatch`. Decode and validate a batch before mutating the retained tree, and keep style/custom-prop values raw until the outer JSON serialization.
-- Search the pinned Zed/GPUI revision before adding a platform workaround. Prefer an existing GPUI API or a small upstreamable GPUI change over a second renderer-specific implementation.
+name - name of project
+description - 1 line description
+type - sveltekit/gpui/site/ext/other
+//when relevant:
+gitlink - 
+npmlink - 
+url - 
 
-## Native text and components
+1. Every project must have README.md, AGENTS.md (this file and its contents), and if relevant DESIGN.md; and if/when published on NPM/githun a LICENSE if relevant
+2. Readme must contain commands for run dev, run desktop, run build, build .dmg.
 
-- Route selectable and searchable text through the shared text run, selection, and highlight pipeline. A native component must not invent a separate text painter or matcher.
-- Layout-affecting code/diff/markdown numbers belong in theme metrics, not Rust constants. A theme prop change must be enough to tune them.
-- `<code>` is a bare primitive. The app owns its fill, border, radius, padding, and any language header.
-- Custom-element adapters own their retained state and must reset removed props, release state when an id changes type, and report supported props/events.
+3. When beginning a new project:
+	- `pnpm add -D sass` && `pnpm add -D @fractaldesign/fractalstyler`
+	- `https://www.npmjs.com/package/@fractaldesign/fractalstyler` and `import '@fractaldesign/fractalstyler/css'` into root layout
+	- add an entry for this project in `/Users/amrit/ars-docs/alldocs/04canonicals/project-tracker.json`
+	- Use and follow DESIGN.md
+	
+4. Do not initiate git or push to github unless user instructs.
 
-## Verification
+5. When developing, load and use poteto-mode - `/Users/amrit/ars-docs/alldocs/90skills/pstack/skills/poteto-mode`
 
-Run the checks relevant to a change, and run the full set before handoff:
 
-```bash
-bun run build:native
-bun run build:svelte
-bun run scripts/native-smoke.mts
-bun --filter @gpui-svelte/example-counter build
-```
+## Knowledge
+
+For GPUI, you have access to `/Users/amrit/ars-docs/alldocs/04canonicals/gpui-wiki`.
+You can use the skills at `/Users/amrit/ars-docs/alldocs/90skills`

@@ -151,3 +151,10 @@ npm publish --access public
 ## License
 
 Apache-2.0
+
+
+## Commands
+
+- Dev: TODO
+- Desktop: TODO
+- Build: TODO
